@@ -1,6 +1,6 @@
 def fibonacci_sequence \
 (
-    start_sequence \
+    start_sequence
     , length
 ):
     
