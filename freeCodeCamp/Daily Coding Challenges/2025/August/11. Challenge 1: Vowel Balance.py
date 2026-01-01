@@ -1,6 +1,6 @@
 def is_balanced \
-( \
-    s \
+(
+    s
 ):
     vowels = "AEIOUaeiou"
     
