@@ -1,8 +1,8 @@
 class Solution
 {
-    private Map < Character, Map < Character, Set < Character > > > map;
+    private HashMap < Character, HashMap < Character, HashSet < Character > > > hashMap;
     private StringBuilder [] pyramid;
-    private Set < String > seen;
+    private HashSet < String > seen;
     
     
     
@@ -15,7 +15,7 @@ class Solution
         , List < String > allowed
     )
     {
-        map = new HashMap <> ();
+        hashMap = new HashMap <> ();
         seen = new HashSet <> ();
         pyramid = new StringBuilder [ bottom.length() ];
         pyramid[0] = new StringBuilder( bottom );
@@ -43,21 +43,21 @@ class Solution
             
             if
             (
-                !map.containsKey( k1 )
+                !hashMap.containsKey( k1 )
             )
             {
-                map.put( k1, new HashMap <> () );
+                hashMap.put( k1, new HashMap <> () );
             }
             
             if
             (
-                !map.get( k1 ).containsKey( k2 )
+                !hashMap.get( k1 ).containsKey( k2 )
             )
             {
-                map.get( k1 ).put( k2, new HashSet <> () );
+                hashMap.get( k1 ).put( k2, new HashSet <> () );
             }
             
-            map.get( k1 ).get( k2 ).add( s.charAt( 2 ) );
+            hashMap.get( k1 ).get( k2 ).add( s.charAt( 2 ) );
         }
         
         
@@ -113,8 +113,8 @@ class Solution
         
         if
         (
-            !map.containsKey( k1 )
-            || !map.get( k1 ).containsKey( k2 )
+            !hashMap.containsKey( k1 )
+            || !hashMap.get( k1 ).containsKey( k2 )
         )
         {
             return false;
@@ -124,7 +124,7 @@ class Solution
         for
         (
             final char c
-            : map.get( k1 ).get( k2 )
+            : hashMap.get( k1 ).get( k2 )
         )
         {
             pyramid[i + 1].setCharAt( j - 2, c );
