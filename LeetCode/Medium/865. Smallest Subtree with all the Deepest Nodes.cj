@@ -27,30 +27,32 @@ class Solution
     init
     ()
     {
-        maxDepth = 0
-        answer = None
+        this.maxDepth = 0
+        this.answer = None
     }
 
 
 
 
-    func subtreeWithAllDeepest
+    func
+    subtreeWithAllDeepest
     (
         root: ?BinaryTreeNode
     )
     : ?BinaryTreeNode
     {
-        solve( root, 0 )
+        this.solve( root, 0 )
 
 
-        answer
+        this.answer
     }
 
 
 
 
     private
-    func solve
+    func
+    solve
     (
         root: ?BinaryTreeNode
         , depth: UInt16
@@ -75,11 +77,11 @@ class Solution
                     
                     if
                     (
-                        right >= maxDepth
+                        right >= this.maxDepth
                     )
                     {
-                        maxDepth = right
-                        answer = root
+                        this.maxDepth = right
+                        this.answer = root
                     }
                     
                     right
