@@ -95,8 +95,8 @@ class Solution
                     (
                         int k = i
                             , c = 200
-                        ; k >= 0
-                            && mat[k][j][1] != 0
+                            , o = i - mat[i][j][0]
+                        ; k > o
                         ; k --
                     )
                     {
