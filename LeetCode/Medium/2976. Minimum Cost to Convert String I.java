@@ -1,4 +1,3 @@
-import java.util.*;
 import java.util.AbstractMap.*;
 
 
@@ -40,7 +39,7 @@ class CharExchanger {
 
     private HashMap<Character, HashMap<Character, Integer>>
     getHashMap(final char[] original, final char[] changed, final int[] cost) {
-        HashMap<Character, HashMap<Character, Integer>> hashMap = new HashMap<>();
+        final HashMap<Character, HashMap<Character, Integer>> hashMap = new HashMap<>();
 
         for (int i = 0; i < cost.length; i++) {
             final char o = original[i];
@@ -70,7 +69,7 @@ class CharExchanger {
                 final Character o = entry.getKey();
                 final Integer oCost = entry.getValue();
 
-                if (visited.contains(o) || (thisMap.containsKey(o) && thisMap.get(o) < oCost)) {
+                if (visited.contains(o)) {
                     continue;
                 } else {
                     visited.add(o);
@@ -84,7 +83,10 @@ class CharExchanger {
                 hashMap.get(o).entrySet().forEach(e -> {
                     final Character c = e.getKey();
                     final Integer cCost = e.getValue() + oCost;
-                    priorityQueue.offer(new SimpleImmutableEntry<>(c, cCost));
+
+                    if (!visited.contains(c) && (!thisMap.containsKey(c) || thisMap.get(c) > cCost)) {
+                        priorityQueue.offer(new SimpleImmutableEntry<>(c, cCost));
+                    }
                 });
             }
         }
