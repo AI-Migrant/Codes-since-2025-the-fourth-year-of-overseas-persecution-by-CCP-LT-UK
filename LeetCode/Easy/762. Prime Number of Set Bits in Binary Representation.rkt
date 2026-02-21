@@ -22,16 +22,29 @@
 
 
 
+
 ; Solution2
+(require math/number-theory)
 (define/contract (count-prime-set-bits left right)
   (-> exact-integer? exact-integer? exact-integer?)
-  (define vec (make-vector 20 #t))
-  (vector-set! vec 0 #f)
-  (vector-set! vec 1 #f)
-
-  (for ([i (in-range 2 20)])
-    (when (vector-ref vec i)
-      (for ([j (in-range (* i i) 20 i)])
-        (vector-set! vec j #f))))
-
+  (define vec (build-vector 20 (λ (i) (prime? i))))
   (length (filter (λ (i) (vector-ref vec (length (filter (λ (j) (bitwise-bit-set? i j)) (range 0 20))))) (range left (add1 right)))))
+
+
+
+
+; Solution3
+(require math/number-theory)
+(define (count-prime-set-bits left right)
+  (-> exact-integer? exact-integer? exact-integer?)
+  (let ([vec (build-vector 20 (λ (i) (prime? i)))])
+    (length (filter (λ (i) (vector-ref vec (length (filter (λ (j) (bitwise-bit-set? i j)) (range 0 20))))) (range left (add1 right))))))
+
+
+
+
+; Solution4
+(require math/number-theory)
+(define/contract (count-prime-set-bits left right)
+  (-> exact-integer? exact-integer? exact-integer?)
+  ((λ (vec) (length (filter (λ (i) (vector-ref vec (length (filter (λ (j) (bitwise-bit-set? i j)) (range 0 20))))) (range left (add1 right))))) (build-vector 20 (λ (i) (prime? i)))))
