@@ -23,7 +23,7 @@
 
 
 
-; Solution2
+; Solution 2
 (require math/number-theory)
 (define/contract (count-prime-set-bits left right)
   (-> exact-integer? exact-integer? exact-integer?)
@@ -33,7 +33,7 @@
 
 
 
-; Solution3
+; Solution 3
 (require math/number-theory)
 (define (count-prime-set-bits left right)
   (-> exact-integer? exact-integer? exact-integer?)
@@ -43,8 +43,17 @@
 
 
 
-; Solution4
+; Solution 4
 (require math/number-theory)
 (define/contract (count-prime-set-bits left right)
   (-> exact-integer? exact-integer? exact-integer?)
   ((λ (vec) (length (filter (λ (i) (vector-ref vec (length (filter (λ (j) (bitwise-bit-set? i j)) (range 0 20))))) (range left (add1 right))))) (build-vector 20 (λ (i) (prime? i)))))
+
+
+
+
+; Solution 5
+(require math/number-theory)
+(define/contract (count-prime-set-bits left right [vec (build-vector 20 (λ (i) (prime? i)))])
+  (-> exact-integer? exact-integer? exact-integer?)
+  (length (filter (λ (i) (vector-ref vec (length (filter (λ (j) (bitwise-bit-set? i j)) (range 0 20))))) (range left (add1 right)))))
