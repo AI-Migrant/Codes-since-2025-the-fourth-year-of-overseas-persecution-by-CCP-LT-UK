@@ -1,3 +1,14 @@
+// Solution 1
+class Solution {
+    func numberOfSteps(num: Int64): Int64 {
+        max(0, 63 - leadingZeros(num) + countOnes(num))
+    }
+}
+
+
+
+
+//Solution 2
 class Solution
 {
     
