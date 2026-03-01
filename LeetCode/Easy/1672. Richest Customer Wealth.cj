@@ -1,3 +1,14 @@
+// Solution 1
+class Solution {
+    func maximumWealth(accounts: Array<Array<Int64>>): Int64 {
+        accounts.iterator().fold(0, { a, c => max(a, c.iterator().fold(0, { a, c => a + c })) })
+    }
+}
+
+
+
+
+// Solution 2
 class Solution
 {
     
