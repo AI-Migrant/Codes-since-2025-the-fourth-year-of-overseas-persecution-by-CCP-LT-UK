@@ -1,10 +1,7 @@
-import java.util.AbstractMap.*;
-
-
 class Solution {
     private static ArrayList<Integer> arrayList;
     private static HashSet<Integer> hashSet;
-    private static HashMap<Integer, SimpleImmutableEntry<Integer, Integer>> hashMap;
+    private static HashMap<Integer, ArrayList<Integer>> hashMap;
     
     
     static {
@@ -12,7 +9,7 @@ class Solution {
         hashSet = new HashSet<>();
         hashMap = new HashMap<>();
         
-        for (int i = 2, j = 4; j <= 1000; i++, j = i * i) {
+        for (int i = 2, j = 4; j <= 1000000; i++, j = i * i) {
             arrayList.add(j);
             hashSet.add(j);
         }
@@ -24,9 +21,14 @@ class Solution {
             
             for (int j = i + 1; j < n; j++) {
                 final int b = arrayList.get(j);
+                final int c = a + b;
                 
-                if (hashSet.contains(a + b)) {
-                    hashMap.put(a + b, new SimpleImmutableEntry<>(a, b));
+                if (hashSet.contains(c)) {
+                    if (!hashMap.containsKey(c)) {
+                        hashMap.put(c, new ArrayList<>());
+                    }
+                    
+                    hashMap.get(c).add(a);
                 }
             }
         }
@@ -37,12 +39,16 @@ class Solution {
         final HashSet<Integer> hashSet1 = new HashSet<>();
         
         for (final int num : arr) {
-            hashSet1.add(num);
+            hashSet1.add(num * num);
         }
         
-        for (final int c : arr) {
-            if (hashMap.containsKey(c) && hashSet1.contains(hashMap.get(c).getKey()) && hashSet1.contains(hashMap.get(c).getValue())) {
-                return true;
+        for (final int c : hashSet1) {
+            if (hashMap.containsKey(c)) {
+                for (final int a : hashMap.get(c)) {
+                    if (hashSet1.contains(a) && hashSet1.contains(c - a)) {
+                        return true;
+                    }
+                }
             }
         }
         
