@@ -4,7 +4,6 @@ class Solution {
         final int n = grid[0].length;
         final long[] maxes = new long[n];
         final long[] mins = new long[n];
-        final long[] arr = new long[4];
 
         maxes[0] = mins[0] = grid[0][0];
 
@@ -16,25 +15,13 @@ class Solution {
             maxes[0] = mins[0] *= grid[i][0];
 
             for (int j = 1; j < n; j++) {
-                arr[0] = maxes[j - 1] * grid[i][j];
-                arr[1] = maxes[j] * grid[i][j];
-                arr[2] = mins[j - 1] * grid[i][j];
-                arr[3] = mins[j] * grid[i][j];
-
-                if (arr[0] > arr[1]) {
-                    maxes[j] = arr[0];
-                    mins[j] = arr[1];
-                }  else {
-                    maxes[j] = arr[1];
-                    mins[j] = arr[0];
-                }
-
-                for (int k = 2; k < 4; k++) {
-                    if (arr[k] > maxes[j]) {
-                        maxes[j] = arr[k];
-                    } else if (arr[k] < mins[j]) {
-                        mins[j] = arr[k];
-                    }
+                if (grid[i][j] < 0) {
+                    final long min = Math.max(maxes[j], maxes[j - 1]) * grid[i][j];
+                    maxes[j] = Math.min(mins[j], mins[j - 1]) * grid[i][j];
+                    mins[j] = min;
+                } else {
+                    maxes[j] = Math.max(maxes[j], maxes[j - 1]) * grid[i][j];
+                    mins[j] = Math.min(mins[j], mins[j - 1]) * grid[i][j];
                 }
             }
         }
